@@ -25,7 +25,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
             URL url = new URL(ur);
 
 
-
+        int a;
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
             InputStream inputStream = httpURLConnection.getInputStream();
