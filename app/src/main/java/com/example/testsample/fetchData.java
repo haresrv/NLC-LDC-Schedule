@@ -1,4 +1,5 @@
 package com.example.testsample;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
@@ -12,20 +13,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class fetchData extends AsyncTask<Void,Void,Void> {
     String data ="";
-    String dataParsed = "Not found";
-    String singleParsed ="";
-
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            String ur=MainActivity.url;
+            String ur=MainActivity.urltext;
             URL url = new URL(ur);
-
-
-        int a;
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -36,23 +36,30 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 data = data + line;
             }
 
-            JSONObject JO = new JSONObject(data);
-
-//            JSONArray JA = new JSONArray(data);
-
-            // MainActivity.data.setText("Length:"+JA.length());
-
-          /*
-for(int i =0 ;i <JA.length(); i++){
-                singleParsed =  "Cell Number:" + JO.get("cellNo") + "\n"+
-                        "Address:" + JO.get("partyAddLine1") + "\n"+
-                        JO.get("partyAddLine2") + "\n"+JO.get("partyAddLine3")+
-                        "Name:" + JO.get("partyName") + "\n";
-
-                dataParsed = dataParsed + singleParsed +"\n" ;
 
 
-            }*/
+            ObjectMapper mapper= new ObjectMapper();
+            try {
+
+                TrainingPlan[] TP= mapper.readValue(data, TrainingPlan[].class);
+
+                for(int j=0;j<TP.length;j++)
+                {
+                    TrainPlans.textView.setText("PGM name: "+TP[j].getPrgName());
+                }
+
+
+            }
+            catch (JsonParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (JsonMappingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
         } catch (MalformedURLException e) {
 
@@ -62,12 +69,7 @@ for(int i =0 ;i <JA.length(); i++){
 
 
             e.printStackTrace();
-        } catch (JSONException e) {
-
-
-            e.printStackTrace();
         }
-
         return null;
     }
 
