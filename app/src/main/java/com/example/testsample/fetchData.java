@@ -23,7 +23,11 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
         try {
             String ur=MainActivity.url;
             URL url = new URL(ur);
+
+
+        int a;
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
@@ -32,17 +36,11 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 data = data + line;
             }
 
-         //   JSONObject JO = new JSONObject(data);
+            JSONObject JO = new JSONObject(data);
 
-            JSONArray JA = new JSONArray(data);
-            for(int i =0 ;i <JA.length(); i++){
+//            JSONArray JA = new JSONArray(data);
 
-
-            }
-
-
-
-                // MainActivity.data.setText("Length:"+JA.length());
+            // MainActivity.data.setText("Length:"+JA.length());
 
           /*
 for(int i =0 ;i <JA.length(); i++){
