@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Testsample</string>
+    <string name="NLCLOGO">Image</string>
+
     <string-array name="Program_Category">
         <item>APPRENTICE</item>
         <item>QUALITY AND STANDARDS</item>

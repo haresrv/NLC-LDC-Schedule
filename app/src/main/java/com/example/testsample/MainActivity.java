@@ -1,6 +1,7 @@
 package com.example.testsample;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,8 +22,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static java.lang.Thread.sleep;
+
 public class MainActivity extends AppCompatActivity {
 Spinner spinner1,spinner2;
+
 Button button1;
 String s1,s2;
 static String urltext;
@@ -31,6 +35,10 @@ EditText textView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
         spinner1=findViewById(R.id.spinner1);
         spinner2=findViewById(R.id.spinner2);
         button1=findViewById(R.id.bt1);

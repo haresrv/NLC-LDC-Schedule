@@ -4,46 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#22DB1B61"
     tools:context=".MainActivity">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="100dp"
- android:id="@+id/line1"
-    >
-
-    <Spinner
-        android:id="@+id/spinner1"
+    <LinearLayout
+        android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
 
-        android:entries="@array/Participant_Category" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:text="Choose Participant Category"
+            android:textSize="20dp"
+            app:fontFamily="@font/aclonica" />
+        <Spinner
+            android:id="@+id/spinner1"
+            android:paddingTop="20dp"
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/Program_Category"
-        />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt1"
-        android:onClick="showdetail"
-        android:text="Show"
-        />
+            android:entries="@array/Participant_Category" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:text="Choose Program Category"
+            android:textSize="20dp"
+            app:fontFamily="@font/aclonica" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:paddingTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:entries="@array/Program_Category" />
+
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showdetail"
+            android:layout_gravity="center"
+            android:text="Show" />
+
+    </LinearLayout>
 
     <EditText
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Fetched"
-        android:id="@+id/text"
+        android:paddingLeft="10dp"
         android:layout_below="@+id/line1"
-        />
+        android:hint="Fetched" />
 </RelativeLayout>
