@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:entries="@array/Participant_Category" />
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:paddingTop="20dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:entries="@array/Program_Category" />
+            />
 
         <Button
             android:id="@+id/bt1"

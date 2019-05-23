@@ -1,32 +1,14 @@
 <resources>
-    <string name="app_name">Testsampl</string>
+    <string name="app_name">Testsample</string>
     <string name="NLCLOGO">Image</string>
 
-    <string-array name="Program_Category">
-        <item>APPRENTICE</item>
-        <item>QUALITY AND STANDARDS</item>
-        <item>WORKER EDUCATION</item>
-        <item>MANAGEMENT</item>
-        <item>HEALTH</item>
-        <item>SAFETY</item>
-        <item>CSR</item>
-        <item>COMPUTER</item>
-        <item>SKILLS UPGRADATION</item>
-        <item>FUNCTIONAL</item>
-        <item>DOMAIN</item>
-        <item>GENERAL</item>
 
-    </string-array>
-    <string-array name="Participant_Category">
-        <item>SCHOOL STUDENT</item>
-        <item>GAT/TAT</item>
-        <item>EXECUTIVES</item>
-        <item>NON-EXECUTIVES</item>
-        <item>SCHOOL TEACHERS</item>
-        <item>GENERAL</item>
-        <item>ITI/EX ITI</item>
-        <item>PASAA</item>
 
-    </string-array>
     <string name="try_again">No Internet Connection</string>
+
+
 </resources>
+
+
+
+
