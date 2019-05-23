@@ -28,4 +28,5 @@
         <item>PASAA</item>
 
     </string-array>
+    <string name="try_again">No Internet Connection</string>
 </resources>

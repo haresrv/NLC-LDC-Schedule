@@ -34,10 +34,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView0"
+        android:layout_marginBottom="-71dp"
         android:gravity="center"
         android:text="NLC India Limited"
+
+
         android:textSize="30sp"
-
-
         app:fontFamily="@font/aclonica" />
 </RelativeLayout>
