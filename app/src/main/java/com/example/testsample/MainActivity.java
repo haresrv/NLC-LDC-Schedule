@@ -27,9 +27,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+//import android.support.design.widget.Snackbar;
 
 import static java.lang.Thread.sleep;
-import android.support.design.widget.Snackbar;
+
 
 public class MainActivity extends AppCompatActivity {
 Spinner spinner1,spinner2;
@@ -38,11 +39,7 @@ Button button1;
 String s1,s2;
 static String urltext;
 EditText textView;
-Context mContext=MainActivity.this;
-    public void showToast(String message){
 
-        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,31 +62,32 @@ Context mContext=MainActivity.this;
             urltext = "http://210.212.241.79:8080/HRWS/fetchTrgPlans?progCatgCode=";
             urltext += s2 + "&partCatgCode=";
             urltext += s1;
-            textView.setText(urltext);
+           // textView.setText(urltext);
+           // urltext="http://210.212.241.79:8080/HRWS/fetchParticipantCatg";
             new Data().execute();
         }
         else{
-            //create a snackbar telling the user there is no internet connection and issuing a chance to reconnect
-            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                    "Retry now",
-                    Snackbar.LENGTH_LONG);
-            snackbar.setActionTextColor(ContextCompat.getColor(getApplicationContext(),
-                    R.color.colorPrimaryDark));
-            snackbar.setAction(R.string.try_again, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this,MainActivity.class));
-                }
-            }).show();
+//            //create a snackbar telling the user there is no internet connection and issuing a chance to reconnect
+//            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+//                    "Retry now",
+//                    Snackbar.LENGTH_LONG);
+//            snackbar.setActionTextColor(ContextCompat.getColor(getApplicationContext(),
+//                    R.color.colorPrimaryDark));
+//            snackbar.setAction(R.string.try_again, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    startActivity(new Intent(MainActivity.this,MainActivity.class));
+//                }
+//            }).show();
         }
 
     }
 
-class Data extends AsyncTask<Void,Void,Boolean> {
+class Data extends AsyncTask<Void,Void,String> {
     String data ="";
     int response=-1;
     @Override
-    protected Boolean doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
         try {
             String ur=MainActivity.urltext;
             URL url = new URL(ur);
@@ -105,7 +103,7 @@ class Data extends AsyncTask<Void,Void,Boolean> {
                     line = bufferedReader.readLine();
                     data = data + line;
                 }
-
+                //textView.setText(data);
 
                 ObjectMapper mapper = new ObjectMapper();
                 try {
@@ -113,47 +111,47 @@ class Data extends AsyncTask<Void,Void,Boolean> {
                     TrainingPlan[] TP = mapper.readValue(data, TrainingPlan[].class);
 
                     for (int j = 0; j < TP.length; j++) {
-                        // TrainPlans.textView.setText("PGM name: "+TP[j].getPrgName());
+                        data+="PGM name: "+TP[j].getPrgName();
+
                     }
 
 
                 } catch (JsonParseException e) {
                     e.printStackTrace();
-                    return false;
+                    return "Parse";
 
                 } catch (JsonMappingException e) {
                     e.printStackTrace();
-                    return false;
+                    return "Parse";
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return false;
+                    return "Parse";
 
                 }
             }
             else {
-                return false;
+
+                return data+"Internet conn";
 
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return false;
+            return data+"MalformedURL";
 
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return data+"IOExce";
 
         }
-        return true;
+        return data;
     }
 
     @Override
-    protected void onPostExecute(Boolean aVoid) {
+    protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
-   if(aVoid==false)
-            new MainActivity().showToast("Error");
-   else
-       new MainActivity().showToast("OK");
+        textView.setText(aVoid);
+
     }
 }
 class HTTPException extends IOException {
