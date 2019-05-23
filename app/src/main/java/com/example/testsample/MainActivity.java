@@ -2,6 +2,7 @@ package com.example.testsample;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,17 +32,27 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.codecrafters.tableview.listeners.TableDataClickListener;
+import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
+import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
+
+import de.codecrafters.tableview.TableView;
+
 //import android.support.design.widget.Snackbar;
 
-import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends AppCompatActivity {
 Spinner spinner1,spinner2;
-
-Button button1;
+    ParticipantCategory[] PC;
+    ProgramCategory[] PROGC;
+    Button button1;
+    TableView tableView;
 String s1,s2;
 String scommon;
+    TrainingPlan[] TP;
+String partCatgCode,progCatgCode;
 static String urltext;
 EditText textView;
 int x;
@@ -62,6 +74,7 @@ int x;
         setContentView(R.layout.activity_main);
         scommon="http://210.212.241.79:8080/HRWS/";
         spinner1=findViewById(R.id.spinner1);
+        tableView=findViewById(R.id.tableView);
         spinner2=findViewById(R.id.spinner2);
         button1=findViewById(R.id.bt1);
         textView=findViewById(R.id.text);
@@ -77,10 +90,31 @@ int x;
             urltext = scommon+"fetchTrgPlans?progCatgCode=";
             urltext += s2 + "&partCatgCode=";
             urltext += s1;
-           // textView.setText(urltext);
-           // urltext="http://210.212.241.79:8080/HRWS/fetchParticipantCatg";
+            partCatgCode=spinner1.getSelectedItem().toString();
+            progCatgCode=spinner2.getSelectedItem().toString();
+            for(int j=0;j<PC.length;j++)
+            {
+                if(PC[j].getDescr().equals(partCatgCode))
+                {
+                    partCatgCode=PC[j].getCode();
+                }
+
+            }
+            for(int j=0;j<PROGC.length;j++)
+            {
+                if(PROGC[j].getDescr().equals(progCatgCode))
+                {
+                    progCatgCode=PROGC[j].getCode();
+                }
+
+            }
+
+
+
+            urltext=scommon+"fetchTrgPlans?progCatgCode="+progCatgCode+"&partCatgCode="+partCatgCode;
             new Data(urltext,3).execute();
         }
+
         else{
 //            //create a snackbar telling the user there is no internet connection and issuing a chance to reconnect
 //            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
@@ -165,7 +199,7 @@ class Data extends AsyncTask<Void,Void,Integer> {
 
             try {
 
-                ParticipantCategory[] PC = mapper.readValue(data, ParticipantCategory[].class);
+                PC = mapper.readValue(data, ParticipantCategory[].class);
                 List<String> spinnerArray1 =  new ArrayList<String>();
 
                 for (int j = 0; j < PC.length; j++) {
@@ -194,7 +228,7 @@ class Data extends AsyncTask<Void,Void,Integer> {
 
             try {
 
-                ProgramCategory[] PROGC = mapper.readValue(data, ProgramCategory[].class);
+                PROGC = mapper.readValue(data, ProgramCategory[].class);
                 List<String> spinnerArray2 =  new ArrayList<String>();
 
                 for (int j = 0; j < PROGC.length; j++) {
@@ -221,27 +255,55 @@ class Data extends AsyncTask<Void,Void,Integer> {
         }
         else if(x==3)
         {
-            JacksonTrainingPlan(data);
-        }
-
-
-    }
-
-
-    public void JacksonTrainingPlan(String data)
-        {
-
-            ObjectMapper mapper = new ObjectMapper();
+            String[] ProbeHeaders={"File No","Program Name","Program Coordinator","No. of Pgms","Program days","Prog Cat","Part Cat"};
+            String[][] Probes;
             try {
 
-                TrainingPlan[] TP = mapper.readValue(data, TrainingPlan[].class);
+                TP = mapper.readValue(data, TrainingPlan[].class);
+                tableView.setColumnCount(TP.length);
+                tableView.setHeaderBackgroundColor(Color.parseColor("#2ecc71"));
+                TrainingPlan trainingPlan=new TrainingPlan();
+                ArrayList<TrainingPlan> probeList=new ArrayList<>();
 
-                for (int j = 0; j < TP.length; j++) {
-                    data+="PGM name: "+TP[j].getPrgName();
+
+                for (int j = 0; j < TP.length; j++)
+                {
+                    trainingPlan.setFileno(TP[j].getFileno());
+                    trainingPlan.setPrgName(TP[j].getPrgName());
+                    trainingPlan.setProgCoord(TP[j].getProgCoord());
+                    trainingPlan.setNoOfPrgs(TP[j].getNoOfPrgs());
+                    trainingPlan.setPrgDays(TP[j].getPrgDays());
+                    trainingPlan.setProgCategory(TP[j].getProgCategory());
+                    trainingPlan.setParticipant(TP[j].getParticipant());
+                    probeList.add(trainingPlan);
+
 
                 }
+                Probes=new String[TP.length][7];
+                for (int i=0;i<probeList.size();i++) {
+
+                    TrainingPlan s=probeList.get(i);
+
+                    Probes[i][0]=s.getFileno();
+                    Probes[i][1]=s.getPrgName();
+                    Probes[i][2]=s.getProgCoord().getPersInfo().getEmpName();
+                    Probes[i][3]=s.getNoOfPrgs().toString();
+                    Probes[i][4]=s.getPrgDays().toString();
+                    Probes[i][5]=s.getProgCategory().getCode();
+                    Probes[i][6]=s.getParticipant().getDescr();
+                    textView.setText(s.getPrgName());
 
 
+                }
+                tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(MainActivity.this,ProbeHeaders));
+                tableView.setDataAdapter(new SimpleTableDataAdapter(MainActivity.this, Probes));
+
+                tableView.addDataClickListener(new TableDataClickListener() {
+                    @Override
+                    public void onDataClicked(int rowIndex, Object clickedData) {
+                        Toast.makeText(MainActivity.this, ((String[])clickedData)[1], Toast.LENGTH_SHORT).show();
+                    }
+                });
             } catch (JsonParseException e) {
                 e.printStackTrace();
 
@@ -254,7 +316,11 @@ class Data extends AsyncTask<Void,Void,Integer> {
             }
         }
 
+        }
+
+
     }
+
 
 class HTTPException extends IOException {
     private int responseCode;

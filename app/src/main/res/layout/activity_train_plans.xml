@@ -5,23 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TrainPlans">
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-android:id="@+id/scroll"
-        >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fetcheddata"
-            android:hint="Fetched content here"
-            android:padding="5dp"
-            android:textSize="24sp"
-            />
-
-    </android.support.v4.widget.NestedScrollView>
-
+    <de.codecrafters.tableview.TableView
+        android:id="@+id/tableView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        table_tableView_columnCount="4" />
 
 
 </RelativeLayout>

@@ -5,15 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import de.codecrafters.tableview.TableView;
+
 public class TrainPlans extends AppCompatActivity {
-NestedScrollView nestedScrollView;
-static TextView textView;
+
+    static de.codecrafters.tableview.TableView tableView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_plans);
-        nestedScrollView=findViewById(R.id.scroll);
-        textView=findViewById(R.id.fetcheddata);
-
+        tableView= (de.codecrafters.tableview.TableView) findViewById(R.id.tableView);
     }
 }

@@ -65,4 +65,18 @@
         android:paddingLeft="10dp"
         android:layout_below="@+id/line1"
         android:hint="Fetched" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/text"
+        android:layout_height="wrap_content">
+    <de.codecrafters.tableview.TableView
+        android:id="@+id/tableView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        table_tableView_columnCount="4" />
+    </ScrollView>
+
+
 </RelativeLayout>
