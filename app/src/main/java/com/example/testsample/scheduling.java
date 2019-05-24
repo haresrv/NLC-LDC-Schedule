@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -154,12 +155,16 @@ public class scheduling extends AppCompatActivity {
                 int width = size.x;
                 int height = size.y;
                 linearLayout.setBackgroundColor(Color.BLACK);
-                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.WRAP_CONTENT);
-                LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),100);
+                LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), 100);
                 for(int i=0;i<PS.length+1;i++) {
                     parent[i] = new LinearLayout(scheduling.this);
                     parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                     parent[i].setOrientation(LinearLayout.HORIZONTAL);
+                    parent[i].setGravity(Gravity.CENTER);
+                    parent[i].setPadding(5, 5, 5, 5);
+
+
                 }
                 for(int i=0;i<7;i++) {
                     TextView tv = new TextView(scheduling.this);
@@ -169,6 +174,8 @@ public class scheduling extends AppCompatActivity {
                     else
                         tv.setLayoutParams(lparams);
                     tv.setText(ProbeHeaders[i]);
+                    tv.setGravity(Gravity.CENTER);
+                    tv.setPadding(5, 5, 5, 5);
                     parent[PS.length].addView(tv);
                 }
 
@@ -186,20 +193,22 @@ public class scheduling extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     Button b = (Button)v;
+                                    startActivity(new Intent(scheduling.this,EmpView.class));
                                 }
                             });
                             parent[i].addView(tv);
                         }
-                        TextView tv=new TextView(scheduling.this);
-                        tv.setLayoutParams(lparams);
-                        if(j%2==0)
-                            tv.setBackgroundColor(Color.GREEN);
-                        else
-                            tv.setBackgroundColor(Color.YELLOW);
+                        else {
+                            TextView tv = new TextView(scheduling.this);
+                            tv.setLayoutParams(lparams);
+                            if (j % 2 == 0)
+                                tv.setBackgroundColor(Color.GREEN);
+                            else
+                                tv.setBackgroundColor(Color.YELLOW);
 
-                        tv.setText(Probes[i][j]);
-                        parent[i].addView(tv);
-
+                            tv.setText(Probes[i][j]);
+                            parent[i].addView(tv);
+                        }
                     } }
 
                 linearLayout.addView(parent[PS.length]);

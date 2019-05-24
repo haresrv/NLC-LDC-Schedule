@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -259,8 +260,6 @@ public class MainActivity extends AppCompatActivity {
                     Probes[i][6]=TP[i].getParticipant().getDescr()==null?"-":TP[i].getParticipant().getDescr();
                     x+=Probes[i][0];
                 }
-                textView.setText(x);
-                textView.setVisibility(View.VISIBLE);
                     LinearLayout parent[] = new LinearLayout[TP.length+1];
                     Display display = getWindowManager().getDefaultDisplay();
                     Point size = new Point();
@@ -274,12 +273,14 @@ public class MainActivity extends AppCompatActivity {
                     int width = size.x;
                     int height = size.y;
                     linearLayout.setBackgroundColor(Color.BLACK);
-                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.WRAP_CONTENT);
-                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),100);
+                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), 100);
                     for(int i=0;i<TP.length+1;i++) {
                         parent[i] = new LinearLayout(MainActivity.this);
                         parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                         parent[i].setOrientation(LinearLayout.HORIZONTAL);
+                        parent[i].setGravity(Gravity.CENTER);
+                        parent[i].setPadding(5, 5, 5, 5);
                     }
                     for(int i=0;i<7;i++) {
                         TextView tv = new TextView(MainActivity.this);
@@ -289,6 +290,8 @@ public class MainActivity extends AppCompatActivity {
                     else
                         tv.setLayoutParams(lparams);
                         tv.setText(ProbeHeaders[i]);
+                        tv.setGravity(Gravity.CENTER);
+                        tv.setPadding(5, 5, 5, 5);
                         parent[TP.length].addView(tv);
                     }
 
@@ -307,23 +310,24 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Button b = (Button)v;
                     urltext=scommon+"fetchTrgProgs?calYear="+ Calendar.getInstance().get(Calendar.YEAR)+"&fileNo="+b.getText().toString();
-                    textView.setText(urltext);
+                    textView.setVisibility(View.GONE);
                     startActivity(new Intent(MainActivity.this,scheduling.class));
 
                 }
             });
             parent[i].addView(tv);
         }
-        TextView tv=new TextView(MainActivity.this);
-        tv.setLayoutParams(lparams);
-        if(j%2==0)
-            tv.setBackgroundColor(Color.GREEN);
-        else
-            tv.setBackgroundColor(Color.YELLOW);
+else {
+            TextView tv = new TextView(MainActivity.this);
+            tv.setLayoutParams(lparams);
+            if (j % 2 == 0)
+                tv.setBackgroundColor(Color.GREEN);
+            else
+                tv.setBackgroundColor(Color.YELLOW);
 
-        tv.setText(Probes[i][j]);
-        parent[i].addView(tv);
-
+            tv.setText(Probes[i][j]);
+            parent[i].addView(tv);
+        }
     } }
 
     linearLayout.addView(parent[TP.length]);

@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:visibility="gone"
-        android:editable="true"
+        android:editable="false"
         android:layout_below="@+id/line1"
         android:hint="Fetched" />
 
