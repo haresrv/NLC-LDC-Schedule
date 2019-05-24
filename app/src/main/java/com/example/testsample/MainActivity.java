@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -239,7 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else if (x == 3) {
-                String[] ProbeHeaders = {"File No", "Program Name", "Program Coordinator", "No. of Pgms", "Program days", "Prog Cat", "Part Cat"};
+                linearLayout.invalidate();
+                String[] ProbeHeaders = {"File No", "Program Name", "Program Coordinator", "No. of Pgms", "Program days", "Prog Cat","Part Cat"};
                 String[][] Probes;
                 try {
                 String x="";
@@ -268,7 +270,9 @@ public class MainActivity extends AppCompatActivity {
                     Display display = getWindowManager().getDefaultDisplay();
                     Point size = new Point();
                     try {
-                        display.getRealSize(size);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                            display.getRealSize(size);
+                        }
                     } catch (NoSuchMethodError err) {
                         display.getSize(size);
                     }
@@ -281,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                         parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                         parent[i].setOrientation(LinearLayout.HORIZONTAL);
                     }
-                    for(int i=0;i<TP.length;i++) {
+                    for(int i=0;i<7;i++) {
                         TextView tv = new TextView(MainActivity.this);
                         tv.setLayoutParams(lparams);
                         tv.setText(ProbeHeaders[i]);

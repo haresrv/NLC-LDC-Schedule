@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".TrainPlans">
 
-    <de.codecrafters.tableview.TableView
-        android:id="@+id/tableView"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        table_tableView_columnCount="4" />
 
 
 </RelativeLayout>
