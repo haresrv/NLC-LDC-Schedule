@@ -3,22 +3,25 @@ package com.example.testsample;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Handler;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -34,29 +37,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.codecrafters.tableview.listeners.TableDataClickListener;
-import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
-import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
-
-import de.codecrafters.tableview.TableView;
-
-import android.support.design.widget.Snackbar;
-
-import org.joda.time.LocalDate;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 public class MainActivity extends AppCompatActivity {
     Spinner spinner1, spinner2;
     ParticipantCategory[] PC;
     ProgramCategory[] PROGC;
     Button button1;
-    TableLayout t1;
-
-
-    TableView<String[]> tableView;
+    ScrollView scroll;
+    LinearLayout linearLayout;
     String s1, s2;
     String scommon;
     TrainingPlan[] TP;
@@ -84,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         scommon = "http://210.212.241.79:8080/HRWS/";
         spinner1 = findViewById(R.id.spinner1);
-        TableLayout tl = (TableLayout) findViewById(R.id.main_table);
-        tableView = (TableView<String[]>)findViewById(R.id.tableView);
         spinner2 = findViewById(R.id.spinner2);
         button1 = findViewById(R.id.bt1);
+        linearLayout=findViewById(R.id.linear);
+        scroll= findViewById(R.id.scroll);
         textView = findViewById(R.id.text);
         new Data(scommon + "fetchParticipantCatg", 1).execute();
         new Data(scommon + "fetchProgCatg", 2).execute();
@@ -257,9 +245,9 @@ public class MainActivity extends AppCompatActivity {
                 String x="";
                     TP = mapper.readValue(data, TrainingPlan[].class);
 
-                tableView.setColumnCount(TP.length);
-
-                tableView.setHeaderBackgroundColor(Color.parseColor("#2ecc71"));
+//                tableView.setColumnCount(TP.length);
+//
+//                tableView.setHeaderBackgroundColor(Color.parseColor("#2ecc71"));
                 Probes=new String[TP.length][7];
                 for (int i=0;i<TP.length;i++)
                 {
@@ -276,16 +264,47 @@ public class MainActivity extends AppCompatActivity {
                 }
                 textView.setText(x);
                 textView.setVisibility(View.VISIBLE);
-//                tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(MainActivity.this,ProbeHeaders));
-//                tableView.setDataAdapter(new SimpleTableDataAdapter(MainActivity.this, Probes));
-//
-//                tableView.addDataClickListener(new TableDataClickListener() {
-//                    @Override
-//                    public void onDataClicked(int rowIndex, Object clickedData) {
-//                        Toast.makeText(MainActivity.this, ((String[])clickedData)[1], Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
+                    LinearLayout parent[] = new LinearLayout[TP.length+1];
+                    Display display = getWindowManager().getDefaultDisplay();
+                    Point size = new Point();
+                    try {
+                        display.getRealSize(size);
+                    } catch (NoSuchMethodError err) {
+                        display.getSize(size);
+                    }
+                    int width = size.x;
+                    int height = size.y;
+                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                    for(int i=0;i<TP.length+1;i++) {
+                        parent[i] = new LinearLayout(MainActivity.this);
+                        parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        parent[i].setOrientation(LinearLayout.HORIZONTAL);
+                    }
+                    for(int i=0;i<TP.length;i++) {
+                        TextView tv = new TextView(MainActivity.this);
+                        tv.setLayoutParams(lparams);
+                        tv.setText(ProbeHeaders[i]);
+                        parent[TP.length].addView(tv);
+                    }
+
+    for(int i=0;i<TP.length;i++)
+    {
+    for(int j=0;j<7;j++) {
+        TextView tv=new TextView(MainActivity.this);
+        tv.setLayoutParams(lparams);
+        if(j%2==0)
+            tv.setBackgroundColor(Color.GREEN);
+        else
+            tv.setBackgroundColor(Color.YELLOW);
+        tv.setText(Probes[i][j]);
+        parent[i].addView(tv);
+    } }
+
+                    linearLayout.addView(parent[TP.length]);
+
+  for(int i=0;i<TP.length;i++)
+        linearLayout.addView(parent[i]);
 
 
                 }
