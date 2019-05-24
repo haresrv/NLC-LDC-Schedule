@@ -13,7 +13,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,8 +20,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.codehaus.jackson.JsonParseException;
@@ -247,11 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 String[][] Probes;
                 try {
                 String x="";
-                    TP = mapper.readValue(data, TrainingPlan[].class);
-
-//                tableView.setColumnCount(TP.length);
-//
-//                tableView.setHeaderBackgroundColor(Color.parseColor("#2ecc71"));
+                TP = mapper.readValue(data, TrainingPlan[].class);
                 Probes=new String[TP.length][7];
                 for (int i=0;i<TP.length;i++)
                 {

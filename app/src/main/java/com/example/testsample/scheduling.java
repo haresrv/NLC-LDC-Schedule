@@ -1,9 +1,18 @@
 package com.example.testsample;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.codehaus.jackson.JsonParseException;
@@ -17,10 +26,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+
+import static com.example.testsample.MainActivity.urltext;
 
 
 public class scheduling extends AppCompatActivity {
     EditText textView;
+    ScrollView scroll;
+    LinearLayout linearLayout;
 
 
     @Override
@@ -28,8 +42,11 @@ public class scheduling extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scheduling);
         textView=findViewById(R.id.t);
-        textView.setText(MainActivity.urltext);
-        new Data(MainActivity.urltext,0).execute();
+        textView.setText(urltext);
+        linearLayout=findViewById(R.id.linear);
+        scroll= findViewById(R.id.scroll);
+
+        new Data(urltext,0).execute();
 
     }
 
@@ -54,7 +71,7 @@ public class scheduling extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Void... voids) {
             try {
-                String ur = MainActivity.urltext;
+                String ur = urltext;
                 URL url = new URL(ur);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.connect();
@@ -95,9 +112,101 @@ public class scheduling extends AppCompatActivity {
             super.onPostExecute(integer);
 
             ObjectMapper mapper = new ObjectMapper();
+            String[][] Probes;
             try {
                     PS = mapper.readValue(data, ProgramSchedule[].class);
-                    textView.setText(PS.length+" ");
+                String[] ProbeHeaders = {"File No","Program","From","To","Room","Participants","Coordinator"};
+                Probes=new String[PS.length][7];
+                for (int i=0;i<PS.length;i++)
+                {
+
+
+                    Probes[i][0]=PS[i].getFileno()==null?"-":PS[i].getFileno();
+                    Probes[i][1]=PS[i].getProgram()==null?"-":PS[i].getProgram();
+                    Probes[i][2]=PS[i].getFromDt().month==null?"-":PS[i].getFromDt().month;
+                    if(Probes[i][2]!="-")
+                    {
+                        //JUNE-3 Time:9.00
+                        Probes[i][2]=PS[i].getFromDt().month+"-"+PS[i].getFromDt().dayOfMonth+" \nTime:"+PS[i].getFromDt().hour+":"+PS[i].getFromDt().minute;
+                    }
+
+                    Probes[i][3]=PS[i].getToDt().month==null?"-":PS[i].getToDt().month;
+                    if(Probes[i][3]!="-")
+                    {
+                        Probes[i][3]=PS[i].getToDt().month+"-"+PS[i].getToDt().dayOfMonth+" \nTime:"+PS[i].getToDt().hour+":"+PS[i].getToDt().minute;
+                    }
+
+                    Probes[i][4]=PS[i].getRoom()==null?"-":PS[i].getRoom();
+                    Probes[i][5]=PS[i].getParticipan().toString()==null?"-":PS[i].getParticipan().toString();
+                    Probes[i][6]=PS[i].getTrgCoord().getPersInfo().getEmpName()==null?"-":PS[i].getTrgCoord().getPersInfo().getEmpName();
+                }
+
+                LinearLayout parent[] = new LinearLayout[PS.length+1];
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        display.getRealSize(size);
+                    }
+                } catch (NoSuchMethodError err) {
+                    display.getSize(size);
+                }
+                int width = size.x;
+                int height = size.y;
+                linearLayout.setBackgroundColor(Color.BLACK);
+                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
+                for(int i=0;i<PS.length+1;i++) {
+                    parent[i] = new LinearLayout(scheduling.this);
+                    parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    parent[i].setOrientation(LinearLayout.HORIZONTAL);
+                }
+                for(int i=0;i<7;i++) {
+                    TextView tv = new TextView(scheduling.this);
+                    tv.setBackgroundColor(Color.GRAY);
+                    if(i==0)
+                        tv.setLayoutParams(lparams1);
+                    else
+                        tv.setLayoutParams(lparams);
+                    tv.setText(ProbeHeaders[i]);
+                    parent[PS.length].addView(tv);
+                }
+
+                for(int i=0;i<PS.length;i++)
+                {
+                    for(int j=0;j<7;j++) {
+                        if(j==0)
+                        {
+                            Button tv=new Button(scheduling.this);
+                            tv.setLayoutParams(lparams1);
+                            tv.setBackgroundColor(Color.RED);
+                            tv.setText(Probes[i][j]);
+                            tv.setEnabled(true);
+                            tv.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Button b = (Button)v;
+                                }
+                            });
+                            parent[i].addView(tv);
+                        }
+                        TextView tv=new TextView(scheduling.this);
+                        tv.setLayoutParams(lparams);
+                        if(j%2==0)
+                            tv.setBackgroundColor(Color.GREEN);
+                        else
+                            tv.setBackgroundColor(Color.YELLOW);
+
+                        tv.setText(Probes[i][j]);
+                        parent[i].addView(tv);
+
+                    } }
+
+                linearLayout.addView(parent[PS.length]);
+
+                for(int i=0;i<PS.length;i++)
+                    linearLayout.addView(parent[i]);
+
 
             } catch (IOException e) {
                 e.printStackTrace();
