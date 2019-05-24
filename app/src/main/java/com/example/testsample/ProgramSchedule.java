@@ -8,8 +8,9 @@
 package com.example.testsample;
 
 
+import org.joda.time.LocalDateTime;
+
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class ProgramSchedule implements Serializable {
     public Integer getYear() {

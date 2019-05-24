@@ -63,20 +63,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:editable="false"
         android:layout_below="@+id/line1"
         android:hint="Fetched" />
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_marginTop="100dp"
+    <!--<HorizontalScrollView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_marginTop="100dp"-->
+        <!--android:layout_below="@+id/text"-->
+        <!--android:fillViewport="true"-->
+        <!--android:layout_height="wrap_content">-->
+
+    <!--<de.codecrafters.tableview.TableView-->
+        <!--android:id="@+id/tableView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="5000dp"-->
+        <!--/>-->
+
+    <!--</HorizontalScrollView>-->
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/main_table"
         android:layout_below="@+id/text"
-        android:layout_height="wrap_content">
-    <de.codecrafters.tableview.TableView
-        android:id="@+id/tableView"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        table_tableView_columnCount="4" />
-    </ScrollView>
+        >
+
+    </TableLayout>
 
 
 </RelativeLayout>

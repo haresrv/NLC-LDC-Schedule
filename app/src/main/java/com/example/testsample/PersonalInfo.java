@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 package com.example.testsample;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.joda.time.LocalDate;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class PersonalInfo implements Serializable {
     private int cpfNo;
     private String empName;
-    
+
+
+    @JsonDeserialize(using = fetchData.class)
     private LocalDate empDob;
+    @JsonDeserialize(using = fetchData.class)
     private LocalDate dojNLC;
+    @JsonDeserialize(using = fetchData.class)
     private LocalDate empDor;
-    
+
     private String empSex;
     private String resvnClassCode;
     private String eduQualification;
@@ -38,12 +36,13 @@ public class PersonalInfo implements Serializable {
         this.empName = empName;
     }
 
+
     public LocalDate getEmpDob() {
-        return empDob;
+                return empDob;
     }
 
-    public void setEmpDob(LocalDate empDob) {
-        this.empDob = empDob;
+    public void setEmpDob(LocalDate dojNLC) {
+        this.empDob=dojNLC;
     }
 
     public LocalDate getDojNLC() {
@@ -51,7 +50,7 @@ public class PersonalInfo implements Serializable {
     }
 
     public void setDojNLC(LocalDate dojNLC) {
-        this.dojNLC = dojNLC;
+        this.dojNLC=dojNLC;
     }
 
     public LocalDate getEmpDor() {
@@ -85,9 +84,5 @@ public class PersonalInfo implements Serializable {
     public void setEduQualification(String eduQualification) {
         this.eduQualification = eduQualification;
     }
-/*
-    public Integer getAge() {
-        return java.time.Period.between(this.empDob, LocalDate.now()).getYears();
-    } 
-    */
+
 }

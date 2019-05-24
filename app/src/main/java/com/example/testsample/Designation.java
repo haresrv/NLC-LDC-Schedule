@@ -9,8 +9,10 @@ package com.example.testsample;
 
 import android.os.Build;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.joda.time.LocalDate;
+
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -81,13 +83,14 @@ public class Designation implements Serializable {
 
     private String revGradeCode;
     private String empCurrGradeCode;
+    @JsonDeserialize(using = fetchData.class)
     private LocalDate empCurrGradeDate;
     
     private Integer empCurrDesgCode;
     private String desgDesc;
     private String desgShortDesc;
     private String desgType;
-    
+    @JsonDeserialize(using = fetchData.class)
     private LocalDate empCurrDesgDate;
 
     @Override

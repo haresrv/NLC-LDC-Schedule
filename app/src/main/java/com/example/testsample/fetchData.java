@@ -1,96 +1,40 @@
 package com.example.testsample;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.DeserializationContext;
+import org.codehaus.jackson.map.deser.std.StdDeserializer;
+import org.codehaus.jackson.type.JavaType;
+import org.joda.time.LocalDate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.io.IOException;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+public class fetchData extends StdDeserializer<LocalDate> {
 
 
-public class fetchData extends AsyncTask<Void,Void,Boolean> {
-    String data ="";
-    int response=-1,voi=0;
-    @Override
-    protected Boolean doInBackground(Void... voids) {
-        try {
-            String ur=MainActivity.urltext;
-            URL url = new URL(ur);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.connect();
-            response=httpURLConnection.getResponseCode();
-            if (response == HttpURLConnection.HTTP_OK) {
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line = "";
-                while (line != null) {
-                    line = bufferedReader.readLine();
-                    data = data + line;
-                }
+    protected fetchData()
+    {
+        super(LocalDate.class);
+    }
+    protected fetchData(Class<?> vc) {
+        super(vc);
+    }
 
-
-                ObjectMapper mapper = new ObjectMapper();
-                try {
-
-                    TrainingPlan[] TP = mapper.readValue(data, TrainingPlan[].class);
-
-                    for (int j = 0; j < TP.length; j++) {
-                        // TrainPlans.textView.setText("PGM name: "+TP[j].getPrgName());
-                    }
-
-
-                } catch (JsonParseException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    return false;
-
-                } catch (JsonMappingException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    return false;
-
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    return false;
-
-                }
-            }
-            else {
-                voi=-1;
-             return false;
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return false;
-
-        } catch (IOException e) {
-                e.printStackTrace();
-            return false;
-
-        }
-        return true;
+    protected fetchData(JavaType valueType) {
+        super(valueType);
     }
 
     @Override
-    protected void onPostExecute(Boolean aVoid) {
-        super.onPostExecute(aVoid);
-        if(aVoid==false)
+    public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        String text=jsonParser.getText();
+        if (text == null)
         {
-
+            return null;
         }
 
-}}
+        return new LocalDate(text);
+
+
+
+    }
+}
