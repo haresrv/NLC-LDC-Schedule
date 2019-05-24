@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Integer aVoid) {
             super.onPostExecute(aVoid);
             //textView.setText(aVoid);
+
             ObjectMapper mapper = new ObjectMapper();
          linearLayout.removeAllViews();
             if (x == 1) {
@@ -280,8 +281,8 @@ public class MainActivity extends AppCompatActivity {
                     int width = size.x;
                     int height = size.y;
                     linearLayout.setBackgroundColor(Color.BLACK);
-                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
-                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/2), LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3), (int)(height/3));
+                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), (int)(height/3));
                     for(int i=0;i<TP.length+1;i++) {
                         parent[i] = new LinearLayout(MainActivity.this);
                         parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -314,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
                     Button b = (Button)v;
                     urltext=scommon+"fetchTrgProgs?calYear="+ Calendar.getInstance().get(Calendar.YEAR)+"&fileNo="+b.getText().toString();
                     textView.setText(urltext);
+                    startActivity(new Intent(MainActivity.this,scheduling.class));
 
                 }
             });

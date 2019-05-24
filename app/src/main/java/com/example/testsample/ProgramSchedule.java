@@ -139,8 +139,26 @@ public class ProgramSchedule implements Serializable {
     private String program;     //program Title
 
     private String room;
-    ///private LocalDateTime fdate;
-    //private String tdate;
+
+    public LocalDateTime getFromDt() {
+        return fromDt;
+    }
+
+    public void setFromDt(LocalDateTime fromDt) {
+        this.fromDt = fromDt;
+    }
+
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime fromDt;
+    private String toDt;
+
+    public String getToDt() {
+        return toDt;
+    }
+
+    public void setToDt(String toDt) {
+        this.toDt = toDt;
+    }
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime fromtime;
