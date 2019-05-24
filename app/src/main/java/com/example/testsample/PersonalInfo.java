@@ -2,6 +2,7 @@ package com.example.testsample;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.joda.time.LocalDate;
+
 import java.io.Serializable;
 
 public class PersonalInfo implements Serializable {

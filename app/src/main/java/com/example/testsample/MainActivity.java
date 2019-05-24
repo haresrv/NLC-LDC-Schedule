@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,6 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -52,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
     String partCatgCode, progCatgCode;
     static String urltext;
     EditText textView;
-    int x;
-    private static final String[][] DATA_TO_SHOW = { { "This", "is", "a", "test" },
-            { "and", "a", "second", "test" } };
+    static int x;
 
     boolean internet_connection() {
         //Check if connected to internet, output accordingly
@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             //textView.setText(aVoid);
             ObjectMapper mapper = new ObjectMapper();
+         linearLayout.removeAllViews();
             if (x == 1) {
 
                 try {
@@ -240,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else if (x == 3) {
-                linearLayout.invalidate();
+
                 String[] ProbeHeaders = {"File No", "Program Name", "Program Coordinator", "No. of Pgms", "Program days", "Prog Cat","Part Cat"};
                 String[][] Probes;
                 try {
@@ -278,8 +279,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     int width = size.x;
                     int height = size.y;
+                    linearLayout.setBackgroundColor(Color.BLACK);
                     LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
-
+                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/2), LinearLayout.LayoutParams.WRAP_CONTENT);
                     for(int i=0;i<TP.length+1;i++) {
                         parent[i] = new LinearLayout(MainActivity.this);
                         parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -287,6 +289,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     for(int i=0;i<7;i++) {
                         TextView tv = new TextView(MainActivity.this);
+                        tv.setBackgroundColor(Color.GRAY);
+                    if(i==0)
+                        tv.setLayoutParams(lparams1);
+                    else
                         tv.setLayoutParams(lparams);
                         tv.setText(ProbeHeaders[i]);
                         parent[TP.length].addView(tv);
@@ -295,19 +301,39 @@ public class MainActivity extends AppCompatActivity {
     for(int i=0;i<TP.length;i++)
     {
     for(int j=0;j<7;j++) {
+        if(j==0)
+        {
+            Button tv=new Button(MainActivity.this);
+            tv.setLayoutParams(lparams1);
+            tv.setBackgroundColor(Color.RED);
+            tv.setText(Probes[i][j]);
+            tv.setEnabled(true);
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Button b = (Button)v;
+                    urltext=scommon+"fetchTrgProgs?calYear="+ Calendar.getInstance().get(Calendar.YEAR)+"&fileNo="+b.getText().toString();
+                    textView.setText(urltext);
+
+                }
+            });
+            parent[i].addView(tv);
+        }
         TextView tv=new TextView(MainActivity.this);
         tv.setLayoutParams(lparams);
         if(j%2==0)
             tv.setBackgroundColor(Color.GREEN);
         else
             tv.setBackgroundColor(Color.YELLOW);
+
         tv.setText(Probes[i][j]);
         parent[i].addView(tv);
+
     } }
 
-                    linearLayout.addView(parent[TP.length]);
+    linearLayout.addView(parent[TP.length]);
 
-  for(int i=0;i<TP.length;i++)
+    for(int i=0;i<TP.length;i++)
         linearLayout.addView(parent[i]);
 
 

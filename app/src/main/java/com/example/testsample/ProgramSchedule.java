@@ -8,8 +8,15 @@
 package com.example.testsample;
 
 
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.DeserializationContext;
+import org.codehaus.jackson.map.JsonDeserializer;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.type.JavaType;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 public class ProgramSchedule implements Serializable {
@@ -134,7 +141,10 @@ public class ProgramSchedule implements Serializable {
     private String room;
     ///private LocalDateTime fdate;
     //private String tdate;
+
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime fromtime;
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime totime;
     private Integer participan;      //noOfParticipants
     private String faculty;         //Internal, External or both
@@ -146,4 +156,14 @@ public class ProgramSchedule implements Serializable {
     private String prgType;     //????
     private Integer boys;           //????
     private Integer persons;        //????
+}
+
+
+ class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+
+
+     @Override
+    public LocalDateTime deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException {
+        return LocalDateTime.parse(arg0.getText());
+    }
 }
