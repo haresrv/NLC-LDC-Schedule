@@ -97,7 +97,7 @@ public class scheduling extends AppCompatActivity {
             ObjectMapper mapper = new ObjectMapper();
             try {
                     PS = mapper.readValue(data, ProgramSchedule[].class);
-                    textView.setText(PS[0].getYear()+" ");
+                    textView.setText(PS.length+" ");
 
             } catch (IOException e) {
                 e.printStackTrace();

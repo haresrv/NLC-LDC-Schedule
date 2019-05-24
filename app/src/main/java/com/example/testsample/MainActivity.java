@@ -281,8 +281,8 @@ public class MainActivity extends AppCompatActivity {
                     int width = size.x;
                     int height = size.y;
                     linearLayout.setBackgroundColor(Color.BLACK);
-                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3), (int)(height/3));
-                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), (int)(height/3));
+                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.WRAP_CONTENT);
                     for(int i=0;i<TP.length+1;i++) {
                         parent[i] = new LinearLayout(MainActivity.this);
                         parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));

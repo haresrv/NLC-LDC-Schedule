@@ -31,10 +31,6 @@ public class fetchData extends StdDeserializer<LocalDate> {
         {
             return null;
         }
-
         return new LocalDate(text);
-
-
-
     }
 }

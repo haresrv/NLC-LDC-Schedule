@@ -1,25 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 package com.example.testsample;
 
 
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.type.JavaType;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-
-import java.io.IOException;
 import java.io.Serializable;
 
 public class ProgramSchedule implements Serializable {
+    private Integer year;
+    private String fileno;      //links to program category
+    private Integer prgNo;
+
+    private String program;     //program Title
+
+    private String room;
+    private LocalDateTime fromDt;
+    private LocalDateTime toDt;
+    private Integer participan;      //noOfParticipants
+    private String faculty;         //Internal, External or both
+
+    private Employee trgCoord;         //coordinator
+
+    private String parttype;    //
+    private String prgType;     //????
+    private Integer boys;           //????
+    private Integer persons;        //????}
+
     public Integer getYear() {
         return year;
     }
@@ -60,20 +63,20 @@ public class ProgramSchedule implements Serializable {
         this.room = room;
     }
 
-    public LocalDateTime getFromtime() {
-        return fromtime;
+    public LocalDateTime getFromDt() {
+        return fromDt;
     }
 
-    public void setFromtime(LocalDateTime fromtime) {
-        this.fromtime = fromtime;
+    public void setFromDt(LocalDateTime fromDt) {
+        this.fromDt = fromDt;
     }
 
-    public LocalDateTime getTotime() {
-        return totime;
+    public LocalDateTime getToDt() {
+        return toDt;
     }
 
-    public void setTotime(LocalDateTime totime) {
-        this.totime = totime;
+    public void setToDt(LocalDateTime toDt) {
+        this.toDt = toDt;
     }
 
     public Integer getParticipan() {
@@ -92,12 +95,12 @@ public class ProgramSchedule implements Serializable {
         this.faculty = faculty;
     }
 
-    public Employee getCoord() {
-        return coord;
+    public Employee getTrgCoord() {
+        return trgCoord;
     }
 
-    public void setCoord(Employee coord) {
-        this.coord = coord;
+    public void setTrgCoord(Employee trgCoord) {
+        this.trgCoord = trgCoord;
     }
 
     public String getParttype() {
@@ -130,58 +133,5 @@ public class ProgramSchedule implements Serializable {
 
     public void setPersons(Integer persons) {
         this.persons = persons;
-    }
-
-    private Integer year;
-    private String fileno;      //links to program category
-    private Integer prgNo;
-
-    private String program;     //program Title
-
-    private String room;
-
-    public LocalDateTime getFromDt() {
-        return fromDt;
-    }
-
-    public void setFromDt(LocalDateTime fromDt) {
-        this.fromDt = fromDt;
-    }
-
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime fromDt;
-    private String toDt;
-
-    public String getToDt() {
-        return toDt;
-    }
-
-    public void setToDt(String toDt) {
-        this.toDt = toDt;
-    }
-
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime fromtime;
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime totime;
-    private Integer participan;      //noOfParticipants
-    private String faculty;         //Internal, External or both
-
-
-    private Employee coord;         //coordinator
-
-    private String parttype;    //
-    private String prgType;     //????
-    private Integer boys;           //????
-    private Integer persons;        //????
-}
-
-
- class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-
-
-     @Override
-    public LocalDateTime deserialize(JsonParser arg0, DeserializationContext arg1) throws IOException {
-        return LocalDateTime.parse(arg0.getText());
     }
 }
