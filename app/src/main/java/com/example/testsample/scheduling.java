@@ -186,7 +186,7 @@ public class scheduling extends AppCompatActivity {
                         {
                             Button tv=new Button(scheduling.this);
                             tv.setLayoutParams(lparams1);
-                            tv.setBackgroundColor(R.drawable.buttonstyle);
+                            tv.setBackgroundResource(R.drawable.buttonstyle3);
                             tv.setText(Probes[i][j]);
                             tv.setEnabled(true);
                             tv.setOnClickListener(new View.OnClickListener() {

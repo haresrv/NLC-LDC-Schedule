@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     ParticipantCategory[] PC;
     ProgramCategory[] PROGC;
     Button button1;
+
     ScrollView scroll;
     LinearLayout linearLayout;
     String s1, s2;
@@ -69,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
+
+
+
         scommon = "http://210.212.241.79:8080/HRWS/";
         spinner1 = findViewById(R.id.spinner1);
         spinner2 = findViewById(R.id.spinner2);
@@ -301,8 +311,9 @@ public class MainActivity extends AppCompatActivity {
         if(j==0)
         {
             Button tv=new Button(MainActivity.this);
+
             tv.setLayoutParams(lparams1);
-            tv.setBackgroundColor(R.drawable.buttonstyle);
+            tv.setBackgroundResource(R.drawable.buttonstyle3);
             tv.setText(Probes[i][j]);
             tv.setGravity(Gravity.CENTER);
             tv.setEnabled(true);
@@ -371,5 +382,7 @@ else {
             return this.responseCode;
         }
     }
+
+
 
 }
