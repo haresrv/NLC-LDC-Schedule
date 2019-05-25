@@ -18,9 +18,8 @@ public class EmpView extends AppCompatActivity {
         t4=findViewById(R.id.unit);
         if(scheduling.Empname!=null)
             t1.setText(scheduling.Empname);
-        if(scheduling.Empname!=null)
-
-            t2.setText(scheduling.CPF);
+        if(scheduling.CPF!=0)
+           t2.setText(scheduling.CPF);
         if(scheduling.DES!=null)
             t3.setText(scheduling.DES);
         if(scheduling.UNIT!=null)
