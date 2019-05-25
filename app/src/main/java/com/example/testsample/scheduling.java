@@ -116,7 +116,7 @@ public class scheduling extends AppCompatActivity {
             String[][] Probes;
             try {
                     PS = mapper.readValue(data, ProgramSchedule[].class);
-                String[] ProbeHeaders = {"File No","Program","From","To","Room","Participants","Coordinator"};
+                String[] ProbeHeaders = {"FILE NO","PROGRAM","FROM","TO","ROOM","PARTICIPANTS","COORDINATOR"};
                 Probes=new String[PS.length][7];
                 for (int i=0;i<PS.length;i++)
                 {
@@ -154,9 +154,9 @@ public class scheduling extends AppCompatActivity {
                 }
                 int width = size.x;
                 int height = size.y;
-                linearLayout.setBackgroundColor(Color.BLACK);
-                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),100);
-                LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), 100);
+                linearLayout.setBackgroundColor(Color.WHITE);
+                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), LinearLayout.LayoutParams.MATCH_PARENT);
                 for(int i=0;i<PS.length+1;i++) {
                     parent[i] = new LinearLayout(scheduling.this);
                     parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -186,7 +186,7 @@ public class scheduling extends AppCompatActivity {
                         {
                             Button tv=new Button(scheduling.this);
                             tv.setLayoutParams(lparams1);
-                            tv.setBackgroundColor(Color.RED);
+                            tv.setBackgroundColor(R.drawable.buttonstyle);
                             tv.setText(Probes[i][j]);
                             tv.setEnabled(true);
                             tv.setOnClickListener(new View.OnClickListener() {
@@ -201,10 +201,11 @@ public class scheduling extends AppCompatActivity {
                         else {
                             TextView tv = new TextView(scheduling.this);
                             tv.setLayoutParams(lparams);
-                            if (j % 2 == 0)
-                                tv.setBackgroundColor(Color.GREEN);
-                            else
-                                tv.setBackgroundColor(Color.YELLOW);
+                            tv.setGravity(Gravity.CENTER);
+//                            if (j % 2 == 0)
+//                                tv.setBackgroundColor(Color.GREEN);
+//                            else
+//                                tv.setBackgroundColor(Color.YELLOW);
 
                             tv.setText(Probes[i][j]);
                             parent[i].addView(tv);

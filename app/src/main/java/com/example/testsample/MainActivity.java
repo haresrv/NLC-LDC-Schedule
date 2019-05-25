@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (x == 3) {
 
-                String[] ProbeHeaders = {"File No", "Program Name", "Program Coordinator", "No. of Pgms", "Program days", "Prog Cat","Part Cat"};
+                String[] ProbeHeaders = {"FILE NO", "PROGRAM NAME", "PROGRAM COORDINATOR", "NO.OF PROGRAMS", "PROGRAM DAYS", "PROGRAM CATEGORY","PARTICIPANT CATEGORY"};
                 String[][] Probes;
                 try {
                 String x="";
@@ -272,9 +272,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     int width = size.x;
                     int height = size.y;
-                    linearLayout.setBackgroundColor(Color.BLACK);
-                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),100);
-                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3), 100);
+                    linearLayout.setBackgroundColor(Color.WHITE);
+                    LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.MATCH_PARENT);
+                    LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams((int)(width/3),LinearLayout.LayoutParams.MATCH_PARENT );
                     for(int i=0;i<TP.length+1;i++) {
                         parent[i] = new LinearLayout(MainActivity.this);
                         parent[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -302,8 +302,9 @@ public class MainActivity extends AppCompatActivity {
         {
             Button tv=new Button(MainActivity.this);
             tv.setLayoutParams(lparams1);
-            tv.setBackgroundColor(Color.RED);
+            tv.setBackgroundColor(R.drawable.buttonstyle);
             tv.setText(Probes[i][j]);
+            tv.setGravity(Gravity.CENTER);
             tv.setEnabled(true);
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -320,10 +321,11 @@ public class MainActivity extends AppCompatActivity {
 else {
             TextView tv = new TextView(MainActivity.this);
             tv.setLayoutParams(lparams);
-            if (j % 2 == 0)
-                tv.setBackgroundColor(Color.GREEN);
-            else
-                tv.setBackgroundColor(Color.YELLOW);
+            tv.setGravity(Gravity.CENTER);
+//            if (j % 2 == 0)
+//                tv.setBackgroundColor(Color.GREEN);
+//            else
+//                tv.setBackgroundColor(Color.YELLOW);
 
             tv.setText(Probes[i][j]);
             parent[i].addView(tv);
