@@ -36,8 +36,8 @@ public class scheduling extends AppCompatActivity {
     EditText textView;
     ScrollView scroll;
     LinearLayout linearLayout;
-    static int CPF;
-    static String Empname,DES,UNIT;
+
+    static String CPF,Empname,DES,UNIT;
 
 
     @Override
@@ -200,7 +200,7 @@ public class scheduling extends AppCompatActivity {
                                 public void onClick(View v) {
                                     Button b = (Button)v;
                                     Empname=E[k].getPersInfo().getEmpName()==null?"-":E[k].getPersInfo().getEmpName();
-                                    CPF=E[k].getPersInfo().getCpfNo();
+                                    CPF=E[k].getPersInfo().getCpfNo().toString()!=null?"-":E[k].getPersInfo().getCpfNo().toString();
                                     DES=E[k].getDesignation().getDesgShortDesc();
                                     UNIT=E[k].getPipasLocation().getPipasUnit().getUnitShortDesc();
                                     startActivity(new Intent(scheduling.this,EmpView.class));
