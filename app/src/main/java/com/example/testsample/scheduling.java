@@ -36,6 +36,8 @@ public class scheduling extends AppCompatActivity {
     EditText textView;
     ScrollView scroll;
     LinearLayout linearLayout;
+    static int CPF;
+    static String Empname,DES,UNIT;
 
 
     @Override
@@ -118,9 +120,10 @@ public class scheduling extends AppCompatActivity {
                     PS = mapper.readValue(data, ProgramSchedule[].class);
                 String[] ProbeHeaders = {"FILE NO","PROGRAM","FROM","TO","ROOM","PARTICIPANTS","COORDINATOR"};
                 Probes=new String[PS.length][7];
+                final Employee E[]=new Employee[PS.length];
                 for (int i=0;i<PS.length;i++)
                 {
-
+                    E[i]=new Employee();
 
                     Probes[i][0]=PS[i].getFileno()==null?"-":PS[i].getFileno();
                     Probes[i][1]=PS[i].getProgram()==null?"-":PS[i].getProgram();
@@ -140,6 +143,7 @@ public class scheduling extends AppCompatActivity {
                     Probes[i][4]=PS[i].getRoom()==null?"-":PS[i].getRoom();
                     Probes[i][5]=PS[i].getParticipan().toString()==null?"-":PS[i].getParticipan().toString();
                     Probes[i][6]=PS[i].getTrgCoord().getPersInfo().getEmpName()==null?"-":PS[i].getTrgCoord().getPersInfo().getEmpName();
+                    E[i]=PS[i].getTrgCoord();
                 }
 
                 LinearLayout parent[] = new LinearLayout[PS.length+1];
@@ -181,7 +185,8 @@ public class scheduling extends AppCompatActivity {
 
                 for(int i=0;i<PS.length;i++)
                 {
-                    for(int j=0;j<7;j++) {
+                    for(int j=0;j<7;j++)
+                    {
                         if(j==0)
                         {
                             Button tv=new Button(scheduling.this);
@@ -189,10 +194,15 @@ public class scheduling extends AppCompatActivity {
                             tv.setBackgroundColor(R.drawable.buttonstyle);
                             tv.setText(Probes[i][j]);
                             tv.setEnabled(true);
+                            final int k=i;
                             tv.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Button b = (Button)v;
+                                    Empname=E[k].getPersInfo().getEmpName()==null?"-":E[k].getPersInfo().getEmpName();
+                                    CPF=E[k].getPersInfo().getCpfNo();
+                                    DES=E[k].getDesignation().getDesgShortDesc();
+                                    UNIT=E[k].getPipasLocation().getPipasUnit().getUnitShortDesc();
                                     startActivity(new Intent(scheduling.this,EmpView.class));
                                 }
                             });

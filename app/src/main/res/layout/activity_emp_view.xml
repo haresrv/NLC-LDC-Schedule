@@ -23,11 +23,12 @@
                 android:src="@drawable/user"/>
             <TextView
                 android:layout_marginTop="10dp"
+                android:id="@+id/name"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wiliam Snoe"
-                android:textColor="#fff"
+                android:text="EMP NAME"
+                android:textColor="#ffffff"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
         </LinearLayout>
@@ -50,13 +51,38 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Photos"
+                        android:text="CPF No"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:id="@+id/cpf"
+                        android:text="-"
+                        android:textColor="@color/colorStarBlue"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Designation"
                         android:textSize="20sp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="125"
+                        android:text="-"
+                        android:id="@+id/des"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
@@ -69,38 +95,17 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Followers"
-                        android:textSize="20sp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1205"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/colorStarBlue"/>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Following"
-                        android:textSize="20sp"
-                        />
+                        android:text="Pipas Unit"
+                        android:textSize="20sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="360"
+                        android:text="-"
+                        android:id="@+id/unit"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
@@ -117,6 +122,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:layout_marginTop="45dp">
         <LinearLayout
             android:orientation="horizontal"
@@ -207,11 +213,19 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="344dp"
+        android:layout_height="245dp"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/nlclogo" />
     <Button
         android:textColor="#fff"
         android:background="@drawable/buttonstyle"
         android:layout_marginTop="35dp"
         android:layout_gravity="center_horizontal"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Follow Me"/>

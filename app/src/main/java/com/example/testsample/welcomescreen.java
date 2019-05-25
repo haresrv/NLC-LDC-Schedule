@@ -31,7 +31,7 @@ public class welcomescreen extends AppCompatActivity {
 
             }
 
-        },0 *1000);
+        },2 *1000);
 
         imageView0=findViewById(R.id.imageView0);
 
