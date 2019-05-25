@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#22DB1B61"
+    android:background="#fff"
     tools:context=".MainActivity">
 
 
@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
+            android:textColor="@color/colorStarBlue"
             android:text="Choose Participant Category"
             android:textSize="20dp"
             app:fontFamily="@font/aclonica" />
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
+            android:textColor="@color/colorStarBlue"
             android:layout_marginTop="10dp"
             android:text="Choose Program Category"
             android:textSize="20dp"
@@ -54,6 +56,7 @@
             android:layout_height="wrap_content"
             android:onClick="showdetail"
             android:layout_gravity="center"
+            android:background="@drawable/buttonstyle2"
             android:text="Show" />
 
     </LinearLayout>

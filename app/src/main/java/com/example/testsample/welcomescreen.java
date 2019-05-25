@@ -13,6 +13,8 @@ public class welcomescreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcomescreen);
 
+
+
         new Handler().postDelayed(new Runnable() {
 
 // Using handler with postDelayed called runnable run method
