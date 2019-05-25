@@ -7,9 +7,6 @@
     tools:context=".EmpView"
     android:background="@color/colorGraylight"
     android:orientation="vertical">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="405dp">
@@ -133,5 +130,5 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="0dp"
         android:src="@drawable/nlclogo" />
-    </ScrollView>
+
 </LinearLayout>
