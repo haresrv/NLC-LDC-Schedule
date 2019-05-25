@@ -6,7 +6,7 @@ import org.joda.time.LocalDate;
 import java.io.Serializable;
 
 public class PersonalInfo implements Serializable {
-    private int cpfNo;
+    private Integer cpfNo;
     private String empName;
 
 
@@ -21,11 +21,11 @@ public class PersonalInfo implements Serializable {
     private String resvnClassCode;
     private String eduQualification;
 
-    public int getCpfNo() {
+    public Integer getCpfNo() {
         return cpfNo;
     }
 
-    public void setCpfNo(int cpfNo) {
+    public void setCpfNo(Integer cpfNo) {
         this.cpfNo = cpfNo;
     }
 
