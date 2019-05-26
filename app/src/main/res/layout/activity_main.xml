@@ -12,51 +12,51 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
+            android:text=" Program Category"
             android:textColor="@color/colorStarBlue"
-            android:text="Choose Participant Category"
-            android:textSize="20dp"
+            android:textSize="16dp"
             app:fontFamily="@font/aclonica" />
-        <Spinner
-            android:id="@+id/spinner1"
-            android:paddingTop="20dp"
 
+        <Spinner
+            android:id="@+id/spinner2"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
+            android:paddingTop="20dp"
 
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:textColor="@color/colorStarBlue"
             android:layout_marginTop="10dp"
-            android:text="Choose Program Category"
-            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:text=" Participant Category"
+            android:textColor="@color/colorStarBlue"
+            android:textSize="16dp"
             app:fontFamily="@font/aclonica" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/spinner1"
             android:layout_width="match_parent"
-            android:paddingTop="20dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            />
+            android:paddingTop="20dp" />
 
         <Button
             android:id="@+id/bt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="showdetail"
             android:layout_gravity="center"
             android:background="@drawable/buttonstyle2"
+            android:onClick="showdetail"
             android:text="Show" />
 
     </LinearLayout>

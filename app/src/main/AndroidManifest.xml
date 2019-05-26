@@ -18,10 +18,12 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".scheduling"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light">
+            
+        </activity>
         <activity android:name=".EmpView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            />
         <activity android:name=".welcomescreen"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

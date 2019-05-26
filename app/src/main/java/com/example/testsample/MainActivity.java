@@ -1,5 +1,6 @@
 package com.example.testsample;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.testsample.R.drawable.nlclogo;
+
 
 public class MainActivity extends AppCompatActivity {
     Spinner spinner1, spinner2;
@@ -71,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         // getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ;
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("NLC LDC Schedule");
+
+       getSupportActionBar().setHomeButtonEnabled(true);
+
+          getSupportActionBar().setIcon(nlclogo);
+getSupportActionBar().setLogo(nlclogo);
 
 
 
@@ -119,11 +131,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //create a snackbar telling the user there is no internet connection and issuing a chance to reconnect
             final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
-                    "Retry now",
+                    R.string.try_again,
                     Snackbar.LENGTH_LONG);
             snackbar.setActionTextColor(ContextCompat.getColor(getApplicationContext(),
-                    R.color.colorPrimaryDark));
-            snackbar.setAction(R.string.try_again, new View.OnClickListener() {
+                    R.color.colorStarBlue));
+            snackbar.setAction("Retry now", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(MainActivity.this, MainActivity.class));
