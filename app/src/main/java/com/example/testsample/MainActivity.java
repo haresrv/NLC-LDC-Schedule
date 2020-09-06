@@ -91,7 +91,7 @@ getSupportActionBar().setLogo(nlclogo);
 
 
 
-        scommon = "http://210.212.241.79:8080/HRWS/";
+        scommon = "EndpointURL";
         spinner1 = findViewById(R.id.spinner1);
         spinner2 = findViewById(R.id.spinner2);
         button1 = findViewById(R.id.bt1);
